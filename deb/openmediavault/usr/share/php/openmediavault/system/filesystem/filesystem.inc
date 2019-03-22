@@ -782,8 +782,11 @@ class Filesystem extends \OMV\System\BlockDevice
 	 */
 	public static function hasFileSystem($deviceFile) {
 		$cmdArgs = [];
-		$cmdArgs[] = "-u filesystem";
-		$cmdArgs[] = escapeshellarg($deviceFile);
+		$cmdArgs[] = "|";
+		$cmdArgs[] = "grep";
+		$cmdArgs[] = "-E";
+		$cmdArgs[] = escapeshellarg(sprintf("^%s.*:.+\sTYPE=.+$",
+		  realpath($deviceFile)));
 		$cmd = new \OMV\System\Process("blkid", $cmdArgs);
 		$cmd->setQuiet(TRUE);
 		$cmd->execute($output, $exitStatus);

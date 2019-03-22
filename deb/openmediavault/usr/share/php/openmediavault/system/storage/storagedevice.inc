@@ -135,6 +135,7 @@ class StorageDevice extends \OMV\System\BlockDevice
 	 *   otherwise FALSE.
 	 */
 	public function isUsb() {
+		return FALSE;
 		// Identify USB devices via 'ID_BUS=usb'.
 		if (TRUE === $this->hasUdevProperty("ID_BUS")) {
 			$property = $this->getUdevProperty("ID_BUS");
